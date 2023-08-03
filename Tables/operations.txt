@@ -1,0 +1,188 @@
+python -m pip install -U pip
+python -m pip install psycopg2
+
+3)
+High Score:
+create or replace function hs(in form varchar(20),out pname varchar(20)) returns varchar(20) as $$
+begin
+select distinct name into pname from player 
+where highscore in(select max(highscore)
+from player
+where format=form);
+end; $$
+language plpgsql;
+
+select hs('test')
+
+Best Bowler:
+
+create or replace function bb(in ff varchar(20),out plname varchar(20)) returns varchar(20) as $$
+begin
+select distinct name into plname from player 
+where wickets in(select max(wickets)
+from player
+where format=ff);
+end; $$
+language plpgsql;
+
+Achievements:
+
+create or replace function achieve(in tn varchar(20),out con varchar(200)) returns varchar(200) as $$
+begin
+select achievement into con from coach 
+where team=tn;
+end; $$
+language plpgsql;
+
+Matches Played:
+
+create or replace function mp(in an varchar(20),out conn int) returns int as $$
+begin
+select matches into conn from player 
+where name=an;
+end; $$
+language plpgsql;
+
+4)Teams:
+Listing:
+Odi:
+
+create or replace function teamodi(in teamn varchar(30))RETURNS refcursor AS $$
+DECLARE
+ref_cursor REFCURSOR := 'mycursor';
+begin
+OPEN ref_cursor FOR select * from player where team=teamn and format='odi';
+RETURN(ref_cursor);
+end; 
+$$ LANGUAGE plpgsql;
+
+begin;
+select teamodi('pakistan');
+FETCH all from mycursor;
+COMMIT;
+
+t20:
+
+create or replace function teamt20(in teamnm varchar(30))RETURNS refcursor AS $$
+DECLARE
+ref_cursor1 REFCURSOR := 'mycursor1';
+begin
+OPEN ref_cursor1 FOR select * from player where team=teamnm and format='t20';
+RETURN(ref_cursor1);
+end; 
+$$ LANGUAGE plpgsql;
+
+begin;
+select teamt20('pakistan');
+FETCH all from mycursor1;
+COMMIT;
+
+test:
+
+create or replace function teamtest(in teammn varchar(30))RETURNS refcursor AS $$
+DECLARE
+ref_cursor2 REFCURSOR := 'mycursor2';
+begin
+OPEN ref_cursor2 FOR select * from player where team=teammn and format='test';
+RETURN(ref_cursor2);
+end; 
+$$ LANGUAGE plpgsql;
+
+begin;
+select teamtest('pakistan');
+FETCH all from mycursor2;
+COMMIT;
+
+Matches:
+
+create or replace function match(in mat varchar(30))RETURNS refcursor AS $$
+DECLARE
+ref_cursor3 REFCURSOR := 'mycursor3';
+begin
+OPEN ref_cursor3 FOR select * from cricketlive where home=mat or away=mat;
+RETURN(ref_cursor3);
+end; 
+$$ LANGUAGE plpgsql;
+
+begin;
+select match('India');
+FETCH all from mycursor3;
+COMMIT;
+
+
+1)
+
+PLAYGAME:
+create or replace function playgame(in home varchar(20),in away varchar(20),in form varchar(20),out result varchar(40)) returns varchar(40) as $$
+declare
+ht int :=0;
+htw int :=0;
+aw int :=0;
+aww int :=0;
+r int ;
+begin
+r:=score();
+ht:= r;
+r:=0;
+r:=wicket();
+htw:= r;
+r:=0;
+r:=score();
+aw:= r;
+r:=0;
+r:=wicket();
+aww:= r;
+RAISE NOTICE 'Output:%,%,%,%',ht,htw,aw,aww;
+if ht = aw then result:= ’draw’ ;
+elsif ht > aw then result:=’win’;
+else result:=’loss’;
+end if;
+insert into cricketlive values(current_timestamp,home,away,form,result);
+end; 
+$$
+language plpgsql;
+
+select playgame('South Africa','Australia','odi');
+
+create or replace function score(out rand int) returns int as $$
+begin
+select floor(random()*(500-1+1))+1 into rand;
+end; $$
+language plpgsql;
+
+select score();
+
+create or replace function wicket(out rand int) returns int as $$
+begin
+select floor(random()*(10-1+1))+1 into rand;
+end; $$
+language plpgsql;
+
+select wicket();
+
+2) Save Game:
+
+ADD game:
+
+create or replace function addgame(in home varchar(20),in away varchar(20),in form varchar(20),in result varchar(20)) returns void AS $$
+begin
+insert into cricketlive values(current_timestamp,home,away,form,result);
+end; $$
+language plpgsql;
+select addgame('Pakistan','Australia','odi','win');
+
+in time varchar(20),
+
+Delete game:
+
+create or replace function deletegame(in home1 varchar(20),in away1 varchar(20),in form1 varchar(20),in result1 varchar(20)) returns void AS $$
+begin
+delete from cricketlive where(time,home,away,format,result)=(date '2018-04-06',home1,away1,form1,result1);
+end; $$
+language plpgsql;
+
+select deletegame('Pakistan','Australia','odi','win');
+
+drop function deletegame(in home1 varchar(20),in away1 varchar(20),in form1 varchar(20),in result1 varchar(20));
+
+//alter the date and deploy the function..

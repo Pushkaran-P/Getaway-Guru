@@ -1,0 +1,225 @@
+relations:
+	
+Player :
+	name(PK),runs,Innings,Avg.Bat,Wickets(Pk),format,Type,Innings_played,High_score.
+coach:
+	name,join_date,Achievement,Team
+Cricketlive:
+	time,home,away,type,result.
+
+
+Front End:
+Admin:
+	Play Game,
+	Record Game,
+	Stats,
+	Add Match,
+	Quit.
+
+
+create 4 procedures,
+4 functions,
+2 triggers relavent to database and admin.(either create or identify).
+
+Look for GUI.
+
+Tables :
+create table Player(
+name varchar(30),
+runs int,
+matches int,
+Avg_bat numeric(5,2),(runs/innings)
+wickets int,
+format vachar(4) check in('test','odi','t20'),
+type varchar(4) check in('bat','bowl','all'),
+innings int,(if its test make it double and if its other increment)
+highscore int,
+best bowl varchar(5)
+);
+
+create table Coach
+(
+name varchar(20),
+joined date,
+achievement varchar(50),
+team varchar(20)
+)
+
+create table Cricketlive
+(
+time date,
+home varchar(20),
+away varchar(20),
+format varchar(4) check (format=any('{test,odi,t20}'::text[])),
+result varchar(4)
+)
+
+Player:
+create table Player
+(
+team varchar(20),
+name varchar(30),
+runs int,
+matches int,
+wickets int,
+format varchar(4) check (format=any('{test,odi,t20}'::text[])),
+type varchar(4) check (type=any('{bat,bowl,all}'::text[])),
+highscore int,
+bestbowl varchar(5),
+constraint pk_player primary key(name,format)
+);	
+
+Coach:
+create table Coach
+(
+name varchar(20),
+joined date not null,
+achievement varchar(50),
+team varchar(20),
+constraint pk_coach primary key(name,team) 
+)
+
+Cricketlive:
+
+create table Cricketlive
+(
+time date,
+home varchar(20),
+away varchar(20),
+format varchar(4) check (format=any('{test,odi,t20}'::text[])),
+result varchar(4) not null
+)
+
+add constraint fk
+player name references Coach(team),
+
+add constraint
+home and awayreferences Coach(team)
+
+
+
+coach : details
+
+insert into coach values('Ravi Shastri',date '2014-01-01','World no.1 odi and test team','India');
+insert into coach values('Sadam Hussain',date '2013-03-01','World no.1 T20 team','Pakistan');
+insert into coach values('Hussey',date '2012-05-01','Champions trophy','Australia');
+insert into coach values('Alastir tim',date '2016-08-11','Ashes 2017','England');
+insert into coach values('Alan Tsotsobe',date '2009-08-30','Team of the year 2016','South Africa');
+
+Player : details
+
+Pakistan:
+insert into player values('Pakistan','Sarfraz Ahmed',8756,120,NULL,'test','bat',121,NULL);
+insert into player values('Pakistan','Sami Aslam',6726,130,NULL,'test','bat',150,NULL);
+insert into player values('Pakistan','Shoaib Malik',2356,78,22,'test','all',141,'3/7');
+insert into player values('Pakistan','Raees Rumman',1356,98,122,'test','bowl',14,'5/27');
+insert into player values('Pakistan','Ahmed Shehzad',3356,198,20,'test','bowl',121,'6/36');
+
+insert into player values('Pakistan','Sarfraz Ahmed',7756,120,NULL,'odi','bat',121,NULL);
+insert into player values('Pakistan','Sami Aslam',6726,130,NULL,'odi','bat',150,NULL);
+insert into player values('Pakistan','Shoaib Malik',2356,78,22,'odi','all',141,'3/7');
+insert into player values('Pakistan','Raees Rumman',1356,98,122,'odi','bowl',14,'5/27');
+insert into player values('Pakistan','Ahmed Shehzad',3356,198,20,'odi','bowl',121,'6/36');
+
+
+insert into player values('Pakistan','Sarfraz Ahmed',7756,120,NULL,'t20','bat',121,NULL);
+insert into player values('Pakistan','Sami Aslam',6726,130,NULL,'t20','bat',150,NULL);
+insert into player values('Pakistan','Shoaib Malik',2356,78,22,'t20','all',141,'3/7');
+insert into player values('Pakistan','Raees Rumman',1356,98,122,'t20','bowl',14,'5/27');
+insert into player values('Pakistan','Ahmed Shehzad',3356,198,20,'t20','bowl',121,'6/36');
+
+India:
+insert into player values('India','Virat Kohli',9756,220,NULL,'test','bat',183,NULL);
+insert into player values('India','Shikhar Dhawan',6726,160,NULL,'test','bat',155,NULL);
+insert into player values('India','Ravindra Jadeja',7356,178,22,'test','all',141,'6/70');
+insert into player values('India','Bhuvneshwar Kumar',1356,298,122,'test','bowl',100,'9/67');
+insert into player values('India','Umesh Yadav',3356,198,210,'test','bowl',70,'7/36');
+
+insert into player values('India','Virat Kohli',9756,220,NULL,'odi','bat',183,NULL);
+insert into player values('India','Shikhar Dhawan',6726,160,NULL,'odi','bat',155,NULL);
+insert into player values('India','Ravindra Jadeja',7356,178,22,'odi','all',141,'6/70');
+insert into player values('India','Bhuvneshwar Kumar',1356,298,122,'odi','bowl',100,'9/67');
+insert into player values('India','Umesh Yadav',3356,198,210,'odi','bowl',70,'7/36');
+
+
+insert into player values('India','Virat Kohli',9756,220,NULL,'t20','bat',183,NULL);
+insert into player values('India','Shikhar Dhawan',6726,160,NULL,'t20','bat',155,NULL);
+insert into player values('India','Ravindra Jadeja',7356,178,22,'t20','all',141,'6/70');
+insert into player values('India','Bhuvneshwar Kumar',1356,298,122,'t20','bowl',100,'9/67');
+insert into player values('India','Umesh Yadav',3356,198,210,'t20','bowl',70,'7/36');
+
+South Africa:
+
+
+insert into player values('South Africa','Faf du Plessis',5756,230,NULL,'test','bat',173,NULL);
+insert into player values('South Africa','Hashim Amla',7726,160,NULL,'test','bat',255,NULL);
+insert into player values('South Africa','AB de Villiers',7356,278,22,'test','all',241,'4/70');
+insert into player values('South Africa','Lungi Ngidi',1356,28,32,'test','bowl',24,'7/67');
+insert into player values('South Africa','Dale Steyn',3156,198,210,'test','bowl',34,'8/43');
+
+
+insert into player values('South Africa','Faf du Plessis',5756,230,NULL,'odi','bat',173,NULL);
+insert into player values('South Africa','Hashim Amla',7726,160,NULL,'odi','bat',255,NULL);
+insert into player values('South Africa','AB de Villiers',7356,278,22,'odi','all',241,'4/70');
+insert into player values('South Africa','Lungi Ngidi',1356,28,32,'odi','bowl',24,'7/67');
+insert into player values('South Africa','Dale Steyn',3156,198,210,'odi','bowl',34,'8/43');
+
+insert into player values('South Africa','Faf du Plessis',5756,230,NULL,'t20','bat',173,NULL);
+insert into player values('South Africa','Hashim Amla',7726,160,NULL,'t20','bat',255,NULL);
+insert into player values('South Africa','AB de Villiers',7356,278,22,'t20','all',241,'4/70');
+insert into player values('South Africa','Lungi Ngidi',1356,28,32,'t20','bowl',24,'7/67');
+insert into player values('South Africa','Dale Steyn',3156,198,210,'t20','bowl',34,'8/43');
+
+Australia :
+
+insert into player values('Australia','Steve Smith',3856,210,NULL,'test','bat',273,NULL);
+insert into player values('Australia','David Warner',4836,190,NULL,'test','bat',185,NULL);
+insert into player values('Australia','Peter Handscomb',1256,378,122,'test','all',171,'4/70');
+insert into player values('Australia','Mitchell Marsh',1856,58,132,'test','bowl',64,'3/43');
+insert into player values('Australia','Glenn Maxwell',2056,197,210,'test','bowl',87,'4/87');
+
+
+
+insert into player values('Australia','Steve Smith',3856,210,NULL,'odi','bat',273,NULL);
+insert into player values('Australia','David Warner',4836,190,NULL,'odi','bat',185,NULL);
+insert into player values('Australia','Peter Handscomb',1256,378,122,'odi','all',171,'4/70');
+insert into player values('Australia','Mitchell Marsh',1856,58,132,'odi','bowl',64,'3/43');
+insert into player values('Australia','Glenn Maxwell',2056,197,210,'odi','bowl',87,'4/87');
+
+
+insert into player values('Australia','Steve Smith',3856,210,NULL,'t20','bat',273,NULL);
+insert into player values('Australia','David Warner',4836,190,NULL,'t20','bat',185,NULL);
+insert into player values('Australia','Peter Handscomb',1256,378,122,'t20','all',171,'4/70');
+insert into player values('Australia','Mitchell Marsh',1856,58,132,'t20','bowl',64,'3/43');
+insert into player values('Australia','Glenn Maxwell',2056,197,210,'t20','bowl',87,'4/87');
+
+
+England :
+
+insert into player values('England','Joe Root',4956,110,NULL,'test','bat',123,NULL);
+insert into player values('England','Alastair Cook',5936,90,NULL,'test','bat',189,NULL);
+insert into player values('England','Mark Stoneman',2356,278,135,'test','all',171,'4/77');
+insert into player values('England','Chris Woakes',1956,158,143,'test','bowl',69,'5/49');
+insert into player values('England','Mark Wood',3256,297,310,'test','bowl',87,'7/58');
+
+
+insert into player values('England','Joe Root',4956,110,NULL,'odi','bat',123,NULL);
+insert into player values('England','Alastair Cook',5936,90,NULL,'odi','bat',189,NULL);
+insert into player values('England','Mark Stoneman',2356,278,135,'odi','all',171,'4/77');
+insert into player values('England','Chris Woakes',1956,158,143,'odi','bowl',69,'5/49');
+insert into player values('England','Mark Wood',3256,297,310,'odi','bowl',87,'7/58');
+
+
+insert into player values('England','Joe Root',4956,110,NULL,'t20','bat',123,NULL);
+insert into player values('England','Alastair Cook',5936,90,NULL,'t20','bat',189,NULL);
+insert into player values('England','Mark Stoneman',2356,278,135,'t20','all',171,'4/77');
+insert into player values('England','Chris Woakes',1956,158,143,'t20','bowl',69,'5/49');
+insert into player values('England','Mark Wood',3256,297,310,'t20','bowl',87,'7/58');
+
+Cricketlive:
+insert into cricketlive values(date '2018-03-28','India','Australia','odi','win');
+insert into cricketlive values(date '2018-03-29','Australia','India','odi','win');
+
+
+insert into cricketlive(NULL,'India','Australia','odi','win');
+insert into cricketlive(NULL,'Australia','India','odi','win');

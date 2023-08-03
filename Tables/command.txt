@@ -1,0 +1,222 @@
+admmin
+user
+
+############################################################################################
+create or replace function admin(in x varchar(10),in y varchar(10))returns int
+as $$
+declare
+	z  int:=0;
+begin
+select company_id into z from login where upper(username)=upper(x) and password=y;
+return z;
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function user_fn(in x varchar(25),in y varchar(25),in z varchar(25),in w int,in u varchar(25),in t int) returns void
+as $$
+begin
+insert into user_t values(x,y,z,w,u,t);
+end;$$
+language plpgsql;
+-----------------------/--------------------
+select user(?,?,?,?,?,?);
+
+-----------------------------------/user3/-------------------------------------------------------------
+############################################################################################
+create or replace function path_to_desti() returns refcursor
+as $$
+declare
+	to_path refcursor:='cursor2';
+begin
+	open to_path for select path_id,startpoint,endpoint,via,company_name,travelcost,foodcost_id from path where up_down='up';
+	return to_path;
+end;$$
+language plpgsql;
+##########################################################################################
+create or replace function no_bus(in x int) returns refcursor
+as $$
+declare
+	to_bus refcursor:='cursor2';
+begin
+	open to_bus for select company_name,no_ac_semi,no_ac_bus,no_semi,no_normal,no_student,rating from bus where company_id=x;
+	return to_bus;
+end;$$
+language plpgsql;
+
+
+
+
+############################################################################################
+----------------------------------/user3/----------------------------------
+create or replace function print_hotel(in id int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id and room_count >= (no_students/room_count);
+	return (display_hotel);
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function rate_dese(in id int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id and room_count >= (no_student/no_per_room) order by rating desc;
+	return (display_hotel);
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function rate_ace(in id int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id and room_count >= (no_student/no_per_room) order by rating ;
+	return (display_hotel);
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function cost_dese(in id int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id and room_count >= (no_student/no_per_room) order by cost desc;
+	return (display_hotel);
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function cost_asc(in id int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id and room_count >= (no_student/no_per_room) order by cost desc;
+	return (display_hotel);
+end;$$
+language plpgsql;
+############################################################################################
+--------------------------------/user4/--------------------------------------
+create or replace function return_path(in id int ) returns refcursor
+as $$
+declare
+	display_path refcursor:='cursor1';
+begin 
+	open display_path for select path_id,startpoint,endpoint,via,travelcost,foodcost_id from path where up_down='down' and companyid=id;
+	return display_path;
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function return_hotel(in id1 int,in id2 int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id1 or path_id=id2 and room_count >= (no_student/no_per_room) order by cost desc;
+	return (display_hotel);
+end;$$
+language plpgsql;
+
+##########################################################################################
+create or replace function print_hotel(in id int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id and room_count >= (no_students/room_count);
+	return (display_hotel);
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function rate_dese(in id int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id and room_count >= (no_students/room_count) order by rating desc;
+	return (display_hotel);
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function rate_ace(in id int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id and room_count >= (no_students/room_count) order by raing asc;
+	return (display_hotel);
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function cost_dese(in id int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id and room_count >= (no_students/room_count);
+	return (display_hotel) order by cost desc;
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function cost_asc(in id int,in no_student int) returns refcursor
+as $$
+declare
+	display_hotel refcursor:='cursor1';
+begin
+	open display_hotel for select * from hotel where path_id=id and room_count >= (no_students/room_count);
+	return (display_hotel) order by cost asc;
+end;$$
+language plpgsql;
+############################################################################################
+create or replace function chuma(inx int,out z int)returns int
+as $$
+begin
+select id into z from company where id=x ; 
+end;$$
+language plpgsql;
+###############################################################################################
+create or replace function admin_sort_id(in x int)returns refcursor
+as $$
+declare
+	sort_id refcursor:='cursor1';
+begin
+	open sort_id for select path_id,startpoint,endpoint,via,up_down,travelcost,foodcost_id from path where companyid=x order by path_id;
+	return sort_id;
+end;$$
+language plpgsql;
+
+##########################################################################################
+create or replace function admin_sort_food(in x int)returns refcursor
+as $$
+declare
+	sort_food refcursor:='cursor1';
+begin
+	open sort_food for select path_id,startpoint,endpoint,via,up_down,travelcost,foodcost_id from path where companyid=x order by foodcost_id;
+	return sort_food;
+end;$$
+language plpgsql;
+#########################################################################################
+create or replace function admin_sort_travel(in x int)returns refcursor
+as $$
+declare
+	sort_travel refcursor:='cursor1';
+begin
+	open sort_travel for select path_id,startpoint,endpoint,via,up_down,travelcost,foodcost_id from path where companyid=x order by travelcost;
+	return sort_travel;
+end;$$
+language plpgsql;
+
+########################################################################################
+create trigger update_values after insert on view
+for each row EXECUTE PROCEDURE update_details();
+
+CREATE OR REPLACE FUNCTION update_details() RETURNS TRIGGER AS $$
+begin
+	update hotel set room_count=room_count-(no_student/no_per_room) where similar_hotel=new.hotel1_id;
+	update hotel set room_count=room_count-(no_student/no_per_room) where similar_hotel=new.hotel2_id;
+	update hotel set room_count=room_count-(no_student/no_per_room) where similar_hotel=new.hotel3_id;
+	return new;
+END; $$ 
+LANGUAGE plpgsql;

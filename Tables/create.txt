@@ -1,0 +1,94 @@
+company:
+create table company(
+id int,
+company_name varchar(25),
+constraint pk_company primary key(id)
+)
+ 
+login:
+create table login(
+id int not null,
+username varchar(25),
+password varchar(25),
+company_id int references company(id)
+)
+
+
+
+path:
+
+create table path(
+path_id int,
+startpoint varchar(25),
+endpoint varchar(25),
+via varchar(25),
+up_down varchar(25),
+company_name varchar(25),
+travelcost int,
+foodcost_id int,
+companyid int references company(id),
+constraint pk_path primary key(path_id)
+)
+
+
+bus:
+
+create table bus(
+company_name varchar(25),
+no_ac_semi int,
+no_ac_bus int,
+no_semi int,
+no_normal int,
+no_student int,
+rating int,
+company_id int references company(id)
+)
+
+
+view:
+
+create table view(
+Name varchar(25),
+phone_no int,
+hotel_cost int,
+path_Desti varchar(50),
+path_home1 varchar(50),
+path_home varchar(50),
+hotel1_id varchar(30),
+hotel2_id varchar(30),
+hotel3_id varchar(30),
+bus_type varchar(25),
+no_bus int,
+total_cost_travel int,
+total_cost_food int,
+no_student int,
+company_id int
+)
+
+hotel:
+
+create table hotel(
+hotel_id int,
+address	 varchar(60),
+hotel_star_rating int,
+rating int,
+pageurl	 varchar(60),
+room_count int,
+no_per_room int,
+room_type varchar(60),
+similar_hotel varchar(60),
+path_id int,
+cost int,
+constraint pk_hotel primary key(hotel_id)
+)
+
+user:
+create table user_t( 
+user_id	 int,
+name varchar(25),	
+college	 varchar(25),
+department varchar(25),
+phone_no varchar(25),	
+year int,
+no_students int
+)

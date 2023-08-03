@@ -1,0 +1,57 @@
+id,Start point,End point,Via,Up/Down,Company,Cost of travel,Cost of Food,company id
+1,coimbatore,bangalore,dharmapuri,up,cox & Kings,25000,10000,1
+2,coimbatore,bangalore,ooty,up,cox & Kings,30000,11000,1
+3,coimbatore,hydrabad,chennai,up,cox & Kings,32000,12000,1
+4,coimbatore,hydrabad,vellore,up,cox & Kings,34000,13000,1
+5,bangalore,goa,mangalore,down,cox & Kings,36000,14000,1
+6,bangalore,goa,shivamogga,down,cox & Kings,38000,15000,1
+7,bangalore,hydrabad,humppi,down,cox & Kings,40000,16000,1
+8,bangalore,hydrabad,anatapur,down,cox & Kings,42000,17000,1
+9,bangalore,hydrabad,kadapa,down,cox & Kings,44000,18000,1
+10,goa,coimbatore,mysuru,down,cox & Kings,46000,19000,1
+11,goa,coimbatore,anantapur,down,cox & Kings,25000,20000,1
+12,hydrabad,coimbatore,chennai,down,cox & Kings,30000,21000,1
+13,hydrabad,coimbatore,krishnagiri,down,cox & Kings,32000,22000,1
+14,goa,cochin,mysuru,down,cox & Kings,34000,10000,1
+15,goa,cochin,chickmagaluru,down,cox & Kings,36000,11000,1
+16,cochin,coimbatore,palakkad,down,cox & Kings,38000,12000,1
+17,cochin,coimbatore,thirssur,down,cox & Kings,40000,13000,1
+18,coimbatore,goa,mysuru,up,Expedia,42000,14000,2
+19,coimbatore,goa,anantapur,up,Expedia,44000,15000,2
+20,coimbatore,cochin,palakkad,up,Expedia,46000,16000,2
+21,coimbatore,cochin,pollachi,up,Expedia,25000,17000,2
+22,goa,cochin,mangalore,down,Expedia,30000,18000,2
+23,goa,cochin,shivamogga,down,Expedia,32000,19000,2
+24,goa,bangalore,davanagere,down,Expedia,34000,20000,2
+25,goa,bangalore,chickmagaluru,down,Expedia,36000,21000,2
+26,cochin,coimbatore,palakkad,down,Expedia,38000,22000,2
+27,cochin,coimbatore,thirssur,down,Expedia,40000,10000,2
+28,cochin,bangalore,malappuram,down,Expedia,42000,11000,2
+29,cochin,bangalore,palakkad,down,Expedia,44000,12000,2
+30,bangalore,coimbatore,ooty,down,Expedia,46000,13000,2
+31,bangalore,coimbatore,mysuru,down,Expedia,25000,14000,2
+32,coimbatore,cochin,thirssur,up,Yatra,30000,15000,3
+33,coimbatore,cochin,malappuram,up,Yatra,32000,16000,3
+34,coimbatore,bangalore,salem,up,Yatra,34000,17000,3
+35,coimbatore,bangalore,mysuru,up,Yatra,36000,18000,3
+36,cochin,hydrabad,pollachi,down,Yatra,38000,19000,3
+37,cochin,hydrabad,malappuram,down,Yatra,40000,20000,3
+38,cochin,goa,mangalore,down,Yatra,42000,21000,3
+39,cochin,goa,mysuru,down,Yatra,44000,22000,3
+40,hydrabad,coimbatore,bangalore,down,Yatra,46000,10000,3
+41,hydrabad,coimbatore,krishnagiri,down,Yatra,25000,11000,3
+42,goa,coimbatore,mangalor,down,Yatra,30000,12000,3
+43,goa,coimbatore,bangalore,down,Yatra,32000,13000,3
+44,coimbatore,goa,mangalor,up,minions,34000,14000,4
+45,coimbatore,goa,bangalore,up,minions,36000,15000,4
+46,coimbatore,hydrabad,bangalore,up,minions,38000,16000,4
+47,coimbatore,hydrabad,krishnagiri,up,minions,40000,17000,4
+48,goa,coimbatore,mangalor,down,minions,42000,18000,4
+49,goa,coimbatore,anantapur,down,minions,44000,19000,4
+50,goa,bangalore,davanagere,down,minions,46000,20000,4
+51,goa,bangalore,chickmagaluru,down,minions,25000,21000,4
+52,goa,hydrabad,belgaum,down,minions,30000,22000,4
+53,goa,hydrabad,hubballi,down,minions,32000,10000,4
+54,hydrabad,coimbatore,vellore,down,minions,34000,11000,4
+55,bangalore,coimbatore,dharmapuri,down,minions,36000,12000,4
+56,bangalore,coimbatore,salem,down,minions,38000,13000,4
